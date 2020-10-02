@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.example.showcase.entity.Car;
 import com.example.showcase.cars.repository.CarRepository;
+import com.example.showcase.entity.Car;
 
 @SpringBootTest
+@Transactional
 class CarControllerTest {
 
     @Autowired
