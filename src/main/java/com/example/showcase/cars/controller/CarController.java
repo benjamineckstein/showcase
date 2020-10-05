@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.showcase.cars.boundary.CarBoundary;
-import com.example.showcase.entity.Car;
+import com.example.showcase.cars.entity.Car;
 
 import lombok.RequiredArgsConstructor;
 

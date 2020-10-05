@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.showcase.entity.Car;
+import com.example.showcase.cars.entity.Car;
 import com.example.showcase.cars.repository.CarRepository;
 
 import lombok.RequiredArgsConstructor;

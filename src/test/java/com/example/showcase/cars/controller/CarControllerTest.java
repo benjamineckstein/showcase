@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.showcase.cars.repository.CarRepository;
-import com.example.showcase.entity.Car;
+import com.example.showcase.cars.entity.Car;
 
 @SpringBootTest
 @Transactional
@@ -30,7 +30,30 @@ class CarControllerTest {
         assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         List<Car> body = carsByName.getBody();
+        assertThat(body).isNotNull().isEmpty();
+    }
 
+    @Test
+    void testFindOneCarList() {
+
+        Car testcar = carRepository.save(Car.builder().id(1L).name("Testcar").build());
+
+        ResponseEntity<List<Car>> carsByName = carController.findCarsByName("Testcar");
+        assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        List<Car> body = carsByName.getBody();
+        assertThat(body).isNotNull().hasSize(1).containsExactly(testcar);
+    }
+
+    @Test
+    void testFindNoCarList() {
+
+        Car testcar = carRepository.save(Car.builder().id(1L).name("Testcar").build());
+
+        ResponseEntity<List<Car>> carsByName = carController.findCarsByName("NonexistingCar");
+        assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        List<Car> body = carsByName.getBody();
         assertThat(body).isNotNull().isEmpty();
     }
 }
