@@ -1,25 +1,27 @@
 package com.example.showcase.cars.entity;
 
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Version;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
 @Entity
-public class Car {
-
-    @Id
-    private Long id;
+@Getter
+@Setter
+@ToString
+@SuperBuilder
+public class Car extends AbstractUUIDEntity {
 
     @Column
     private String name;
+
+    @Version
+    @Column
+    private Integer version;
 
 }

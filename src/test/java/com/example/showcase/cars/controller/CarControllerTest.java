@@ -36,8 +36,7 @@ class CarControllerTest {
     @Test
     void testFindOneCarList() {
 
-        Car testcar = carRepository.save(Car.builder().id(1L).name("Testcar").build());
-
+        Car testcar = carRepository.save(Car.builder().name("Testcar").build());
         ResponseEntity<List<Car>> carsByName = carController.findCarsByName("Testcar");
         assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
 
@@ -48,7 +47,7 @@ class CarControllerTest {
     @Test
     void testFindNoCarList() {
 
-        Car testcar = carRepository.save(Car.builder().id(1L).name("Testcar").build());
+        Car testcar = carRepository.save(Car.builder().name("Testcar").build());
 
         ResponseEntity<List<Car>> carsByName = carController.findCarsByName("NonexistingCar");
         assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);

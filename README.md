@@ -1,1 +1,6 @@
-# showcase_tests
+#Showcase
+##Architecture Tests
+
+##Mutation Tests
+
+##Automated Pojo Testing
