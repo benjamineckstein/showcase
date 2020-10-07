@@ -9,7 +9,6 @@ import java.util.UUID;
 
 @MappedSuperclass
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 @SuperBuilder
@@ -23,7 +22,12 @@ public class AbstractUUIDEntity implements Persistable<UUID> {
 
     @Transient
     @Builder.Default
+    //@Setter(AccessLevel.NONE)
     private boolean persisted = false;
+
+    @Version
+    @Column
+    private Integer version;
 
     @PostPersist
     @PostLoad

@@ -1,9 +1,7 @@
 package com.example.showcase.cars.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
+import com.example.showcase.cars.entity.Car;
+import com.example.showcase.cars.repository.CarRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,8 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.showcase.cars.repository.CarRepository;
-import com.example.showcase.cars.entity.Car;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
@@ -22,6 +21,22 @@ class CarControllerTest {
     CarController carController;
     @Autowired
     CarRepository carRepository;
+
+    @Test
+    void testCreateCarResponse() {
+
+        ResponseEntity<Car> carCreatedResponse = carController.createCar("TestName");
+        assertThat(carCreatedResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(carCreatedResponse.getHeaders().getLocation()).isNotNull().hasPath("/api/cars/TestName");
+
+    }
+
+    @Test
+    void testCreateCarPersisted() {
+
+        ResponseEntity<Car> carCreatedResponse = carController.createCar("TestName");
+        assertThat(carRepository.findAll()).isNotEmpty().containsExactly(carCreatedResponse.getBody());
+    }
 
     @Test
     void testFindEmptyCarList() {
@@ -47,7 +62,7 @@ class CarControllerTest {
     @Test
     void testFindNoCarList() {
 
-        Car testcar = carRepository.save(Car.builder().name("Testcar").build());
+        carRepository.save(Car.builder().name("Testcar").build());
 
         ResponseEntity<List<Car>> carsByName = carController.findCarsByName("NonexistingCar");
         assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);

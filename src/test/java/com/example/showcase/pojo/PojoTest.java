@@ -1,4 +1,4 @@
-package com.example.showcase;
+package com.example.showcase.pojo;
 
 
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -12,7 +12,6 @@ import com.openpojo.validation.test.Tester;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import com.tngtech.archunit.core.domain.JavaClass;
-import com.tngtech.archunit.core.importer.ClassFileImporter;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.example.showcase.archunit.CodingRulesTest.SHOWCASECLASSES;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -120,8 +120,7 @@ class PojoTest {
 
     private static List<Class<?>> getPojoClasses() {
         // TODO how to identify pojos? Is overwritten equals method enough?
-        return new ClassFileImporter()
-                .importPackages("com.example.showcase").stream()
+        return SHOWCASECLASSES.stream()
                 .filter(javaClass -> javaClass.tryGetMethod("equals", Object.class).isPresent())
                 .map(JavaClass::reflect)
                 .collect(Collectors.toList());

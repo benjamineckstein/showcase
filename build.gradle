@@ -63,4 +63,6 @@ pitest {
 	// jvmArgs = ['-Xmx1024m']
 	testPlugin = "junit5"
 	junit5PluginVersion = '0.12'
+	excludedTestClasses = ["com.example.showcase.pojo.**"]
+	mutators = ["ALL"]
 }

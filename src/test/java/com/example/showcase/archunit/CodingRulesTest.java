@@ -20,26 +20,26 @@ import com.tngtech.archunit.lang.CompositeArchRule;
 
 public class CodingRulesTest {
 
-    private final JavaClasses classes = new ClassFileImporter().withImportOption(DO_NOT_INCLUDE_TESTS).importPackages("com.example.showcase");
+    public static final JavaClasses SHOWCASECLASSES = new ClassFileImporter().withImportOption(DO_NOT_INCLUDE_TESTS).importPackages("com.example.showcase");
 
     @Test
     public void classes_should_not_access_standard_streams_defined_by_hand() {
-        noClasses().should(ACCESS_STANDARD_STREAMS).check(classes);
+        noClasses().should(ACCESS_STANDARD_STREAMS).check(SHOWCASECLASSES);
     }
 
     @Test
     public void classes_should_not_access_standard_streams_from_library() {
-        NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS.check(classes);
+        NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS.check(SHOWCASECLASSES);
     }
 
     @Test
     public void classes_should_not_throw_generic_exceptions() {
-        NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS.check(classes);
+        NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS.check(SHOWCASECLASSES);
     }
 
     @Test
     public void classes_should_not_use_java_util_logging() {
-        NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING.check(classes);
+        NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING.check(SHOWCASECLASSES);
     }
 
     @Test
@@ -49,22 +49,22 @@ public class CodingRulesTest {
             .andShould().beStatic()
             .andShould().beFinal()
             .because("we agreed on this convention")
-            .check(classes);
+            .check(SHOWCASECLASSES);
     }
 
     @Test
     public void classes_should_not_use_jodatime() {
-        NO_CLASSES_SHOULD_USE_JODATIME.check(classes);
+        NO_CLASSES_SHOULD_USE_JODATIME.check(SHOWCASECLASSES);
     }
 
     @Test
     public void classes_should_not_use_field_injection() {
-        NO_CLASSES_SHOULD_USE_FIELD_INJECTION.check(classes);
+        NO_CLASSES_SHOULD_USE_FIELD_INJECTION.check(SHOWCASECLASSES);
     }
 
     @Test
     public void no_classes_should_access_standard_streams_or_throw_generic_exceptions() {
         CompositeArchRule.of(NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS)
-            .and(NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS).check(classes);
+            .and(NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS).check(SHOWCASECLASSES);
     }
 }

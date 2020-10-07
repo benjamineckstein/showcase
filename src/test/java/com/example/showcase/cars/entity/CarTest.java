@@ -17,9 +17,33 @@ class CarTest {
     CarRepository carRepository;
 
     @Test
+    void testNoArgConstructor() {
+        Car testcar = new Car();
+        testcar.setName("Name");
+        assertThat(testcar.getId()).isNotNull();
+    }
+
+    @Test
     void testUUIDIsGenerated() {
         Car testcar = Car.builder().build();
         assertThat(testcar.getId()).isNotNull();
+    }
+
+
+    @Test
+    void testIsPersistedForNewEntity() {
+        Car testcar = Car.builder().build();
+        assertThat(testcar.isPersisted()).isFalse();
+        assertThat(testcar.isNew()).isTrue();
+    }
+
+    @Test
+    void testIsPersistedForOldEntity() {
+
+        Car carSaved = carRepository.saveAndFlush(Car.builder().build());
+        assertThat(carSaved.isPersisted()).isTrue();
+        assertThat(carSaved.isNew()).isFalse();
+
     }
 
     @Test
@@ -29,8 +53,8 @@ class CarTest {
 
         Car testCarSaved = carRepository.save(testcar);
         assertThat(testcar.getVersion()).isEqualTo(0);
-
     }
+
     @Test
     void testVersionIncrements() {
         Car testCarSaved = carRepository.saveAndFlush(Car.builder().build());
