@@ -1,4 +1,4 @@
-package com.example.showcase.archunit;
+package com.github.benjamineckstein.showcase.archunit;
 
 import static com.tngtech.archunit.core.importer.ImportOption.Predefined.DO_NOT_INCLUDE_TESTS;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.fields;
@@ -20,7 +20,7 @@ import com.tngtech.archunit.lang.CompositeArchRule;
 
 public class CodingRulesTest {
 
-    public static final JavaClasses SHOWCASECLASSES = new ClassFileImporter().withImportOption(DO_NOT_INCLUDE_TESTS).importPackages("com.example.showcase");
+    public static final JavaClasses SHOWCASECLASSES = new ClassFileImporter().withImportOption(DO_NOT_INCLUDE_TESTS).importPackages("com.github.benjamineckstein.showcase");
 
     @Test
     public void classes_should_not_access_standard_streams_defined_by_hand() {

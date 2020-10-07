@@ -8,7 +8,7 @@ plugins {
 	id 'info.solidsoft.pitest' version '1.5.1'
 }
 
-group = 'com.example'
+group = 'com.github.benjamineckstein'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -63,6 +63,6 @@ pitest {
 	// jvmArgs = ['-Xmx1024m']
 	testPlugin = "junit5"
 	junit5PluginVersion = '0.12'
-	excludedTestClasses = ["com.example.showcase.pojo.**"]
+	excludedTestClasses = ["com.github.benjamineckstein.showcase.pojo.**"]
 	mutators = ["ALL"]
 }

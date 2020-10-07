@@ -1,8 +1,8 @@
-package com.example.showcase.cars.boundary;
+package com.github.benjamineckstein.showcase.cars.boundary;
 
-import com.example.showcase.architecture.Boundary;
-import com.example.showcase.cars.entity.Car;
-import com.example.showcase.cars.repository.CarRepository;
+import com.github.benjamineckstein.showcase.architecture.Boundary;
+import com.github.benjamineckstein.showcase.cars.entity.Car;
+import com.github.benjamineckstein.showcase.cars.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Boundary
 @RequiredArgsConstructor
 public class CarBoundary {
+
     private final CarRepository carRepository;
 
     @Transactional

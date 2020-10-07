@@ -1,4 +1,4 @@
-package com.example.showcase.pojo;
+package com.github.benjamineckstein.showcase.pojo;
 
 
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.example.showcase.archunit.CodingRulesTest.SHOWCASECLASSES;
+import static com.github.benjamineckstein.showcase.archunit.CodingRulesTest.SHOWCASECLASSES;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

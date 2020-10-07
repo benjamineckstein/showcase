@@ -1,6 +1,9 @@
-package com.example.showcase.cars.entity;
+package com.github.benjamineckstein.showcase.cars.entity;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.domain.Persistable;
 

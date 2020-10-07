@@ -1,6 +1,6 @@
-package com.example.showcase.cars.entity;
+package com.github.benjamineckstein.showcase.cars.entity;
 
-import com.example.showcase.cars.repository.CarRepository;
+import com.github.benjamineckstein.showcase.cars.repository.CarRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

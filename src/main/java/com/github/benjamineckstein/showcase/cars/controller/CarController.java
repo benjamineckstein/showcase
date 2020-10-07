@@ -1,19 +1,17 @@
-package com.example.showcase.cars.controller;
+package com.github.benjamineckstein.showcase.cars.controller;
 
-import java.util.List;
-
+import com.github.benjamineckstein.showcase.cars.boundary.CarBoundary;
+import com.github.benjamineckstein.showcase.cars.entity.Car;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.example.showcase.cars.boundary.CarBoundary;
-import com.example.showcase.cars.entity.Car;
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
+
+import java.util.List;
 
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 

@@ -1,6 +1,6 @@
-#Showcase
-##Architecture Tests
+# Showcase
+## Architecture Tests
 
-##Mutation Tests
+## Mutation Tests
 
-##Automated Pojo Testing
+## Automated Pojo Testing
