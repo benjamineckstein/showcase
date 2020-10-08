@@ -22,6 +22,13 @@ repositories {
 	mavenCentral()
 }
 
+gradleEnterprise {
+	buildScan {
+		termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+		termsOfServiceAgree = 'yes'
+	}
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
