@@ -22,13 +22,6 @@ repositories {
 	mavenCentral()
 }
 
-gradleEnterprise {
-	buildScan {
-		termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-		termsOfServiceAgree = 'yes'
-	}
-}
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -73,3 +66,14 @@ pitest {
 	excludedTestClasses = ["com.github.benjamineckstein.showcase.pojo.**"]
 	mutators = ["ALL"]
 }
+
+
+if (hasProperty('buildScan')) {
+	gradleEnterprise {
+		buildScan {
+			termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+			termsOfServiceAgree = 'yes'
+		}
+	}
+}
+
