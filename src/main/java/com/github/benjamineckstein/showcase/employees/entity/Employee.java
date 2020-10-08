@@ -1,6 +1,7 @@
-package com.github.benjamineckstein.showcase.customer.entity;
+package com.github.benjamineckstein.showcase.employees.entity;
 
-import com.github.benjamineckstein.showcase.cars.entity.Car;
+import com.github.benjamineckstein.showcase.expertise.entity.Expertise;
+import com.github.benjamineckstein.showcase.skills.entity.Skill;
 import com.github.benjamineckstein.showcase.common.AbstractUuidEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +18,11 @@ import java.util.Set;
 @Getter
 @Setter
 @SuperBuilder
-public class Customer extends AbstractUuidEntity {
+public class Employee extends AbstractUuidEntity {
 
   @Column private String name;
 
-  @OneToMany(mappedBy = "customer")
-  private Set<Car> cars;
+  @OneToMany(mappedBy = "employee")
+  private Set<Expertise> expertise;
 
 }

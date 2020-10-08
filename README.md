@@ -27,7 +27,6 @@ Is your software bug-free if you can reach 100% test coverage? For sure not. Mut
 
 Mutation testing is implemented with <https://pitest.org/>
 
-
 ## Automated Pojo Testing
 
 Do not waste time writing boring and repeating tests. Go one step further and autogenerate simple tests for all of your plain old java objects (pojo).
@@ -36,6 +35,5 @@ Do not waste time writing boring and repeating tests. Go one step further and au
  * Verify that setters and getters do not have any side effects.
  * Verify that equal and hashcode implementations work as expected 
  * even if you add new fields to your pojo.  
-   
 
 Automated Pojo testing is implemented with <https://github.com/OpenPojo/openpojo>
