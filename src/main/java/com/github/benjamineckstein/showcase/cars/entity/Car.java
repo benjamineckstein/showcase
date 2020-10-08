@@ -7,7 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @NoArgsConstructor
 @Entity
@@ -20,5 +24,5 @@ public class Car extends AbstractUuidEntity {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "customer_id")
-  Customer customer;
+  private Customer customer;
 }

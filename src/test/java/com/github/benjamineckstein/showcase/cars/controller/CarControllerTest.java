@@ -17,8 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 class CarControllerTest {
 
-  @Autowired CarController carController;
-  @Autowired CarRepository carRepository;
+  private @Autowired CarController carController;
+  private @Autowired CarRepository carRepository;
 
   @Test
   void testCreateCarResponse() {

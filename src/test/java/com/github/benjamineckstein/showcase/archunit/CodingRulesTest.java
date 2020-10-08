@@ -10,7 +10,12 @@ import java.util.logging.Logger;
 import static com.tngtech.archunit.core.importer.ImportOption.Predefined.DO_NOT_INCLUDE_TESTS;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.fields;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
-import static com.tngtech.archunit.library.GeneralCodingRules.*;
+import static com.tngtech.archunit.library.GeneralCodingRules.ACCESS_STANDARD_STREAMS;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_FIELD_INJECTION;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING;
+import static com.tngtech.archunit.library.GeneralCodingRules.NO_CLASSES_SHOULD_USE_JODATIME;
 
 public class CodingRulesTest {
 
@@ -20,27 +25,27 @@ public class CodingRulesTest {
           .importPackages("com.github.benjamineckstein.showcase");
 
   @Test
-  public void classes_should_not_access_standard_streams_defined_by_hand() {
+  void classesShouldNotAccessStandardStreamsDefinedByHand() {
     noClasses().should(ACCESS_STANDARD_STREAMS).check(SHOWCASECLASSES);
   }
 
   @Test
-  public void classes_should_not_access_standard_streams_from_library() {
+  void classesShouldNotAccessStandardStreamsFromLibrary() {
     NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS.check(SHOWCASECLASSES);
   }
 
   @Test
-  public void classes_should_not_throw_generic_exceptions() {
+  void classesShouldNotThrowGenericExceptions() {
     NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS.check(SHOWCASECLASSES);
   }
 
   @Test
-  public void classes_should_not_use_java_util_logging() {
+  void classesShouldNotUseJavaUtilLogging() {
     NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING.check(SHOWCASECLASSES);
   }
 
   @Test
-  public void loggers_should_be_private_static_final() {
+  void loggersShouldBePrivateStaticFinal() {
     fields()
         .that()
         .haveRawType(Logger.class)
@@ -55,17 +60,17 @@ public class CodingRulesTest {
   }
 
   @Test
-  public void classes_should_not_use_jodatime() {
+  void classesShouldNotUseJodatime() {
     NO_CLASSES_SHOULD_USE_JODATIME.check(SHOWCASECLASSES);
   }
 
   @Test
-  public void classes_should_not_use_field_injection() {
+  void classesShouldNotUseFieldInjection() {
     NO_CLASSES_SHOULD_USE_FIELD_INJECTION.check(SHOWCASECLASSES);
   }
 
   @Test
-  public void no_classes_should_access_standard_streams_or_throw_generic_exceptions() {
+  void noClassesShouldAccessStandardStreamsOrThrowGenericExceptions() {
     CompositeArchRule.of(NO_CLASSES_SHOULD_ACCESS_STANDARD_STREAMS)
         .and(NO_CLASSES_SHOULD_THROW_GENERIC_EXCEPTIONS)
         .check(SHOWCASECLASSES);

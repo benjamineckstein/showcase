@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class CarTest {
 
-  @Autowired CarRepository carRepository;
+  private @Autowired CarRepository carRepository;
 
   @Test
   void testNoArgConstructor() {
@@ -48,8 +48,7 @@ class CarTest {
     Car testcar = Car.builder().build();
     assertThat(testcar.getVersion()).isNull();
 
-    Car testCarSaved = carRepository.save(testcar);
-    assertThat(testcar.getVersion()).isEqualTo(0);
+    assertThat(carRepository.save(testcar).getVersion()).isEqualTo(0);
   }
 
   @Test

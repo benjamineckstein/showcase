@@ -23,7 +23,7 @@ import static java.util.function.Predicate.not;
 class DesignRulesTest {
 
   @Test
-  void controller_annotated_with_restcontroller() {
+  void controllerAnnotatedWithRestcontroller() {
     classes()
         .that()
         .haveNameMatching(".*[cC]ontroller")
@@ -33,7 +33,7 @@ class DesignRulesTest {
   }
 
   @Test
-  void controller_naming_pattern() {
+  void controllerNamingPattern() {
     classes()
         .that()
         .areAnnotatedWith(RestController.class)
@@ -43,7 +43,7 @@ class DesignRulesTest {
   }
 
   @Test
-  void controller_methods_return_responseEntity() {
+  void controllerMethodsReturnResponseEntity() {
 
     classes()
         .that()
@@ -75,7 +75,7 @@ class DesignRulesTest {
    * as well.
    */
   @Test
-  void controller_methods_return_responseEntity2() {
+  void controllerMethodsReturnResponseEntity2() {
     ArchRuleDefinition.methods()
         .that()
         .arePublic()
@@ -88,7 +88,7 @@ class DesignRulesTest {
   }
 
   @Test
-  void boundary_methods_transactional() {
+  void boundaryMethodsTransactional() {
     classes()
         .that()
         .areAnnotatedWith(Boundary.class)
@@ -116,7 +116,7 @@ class DesignRulesTest {
    * more readable version of "boundary_methods_transactional" with better error message as well.
    */
   @Test
-  void boundary_methods_transactional2() {
+  void boundaryMethodsTransactional2() {
 
     ArchRuleDefinition.methods()
         .that()
@@ -129,19 +129,19 @@ class DesignRulesTest {
         .check(SHOWCASECLASSES);
   }
 
-  static Predicate<JavaMethod> isMethodNotAnnotatedWith(Class<? extends Annotation> type) {
+  private static Predicate<JavaMethod> isMethodNotAnnotatedWith(Class<? extends Annotation> type) {
     return not(m -> m.isAnnotatedWith(type));
   }
 
-  static Predicate<JavaMethod> isMethodPublicAndNotSynthetic() {
+  private static Predicate<JavaMethod> isMethodPublicAndNotSynthetic() {
     return isMethodPublic().and(isMethodNotSynthetic());
   }
 
-  static Predicate<JavaMethod> isMethodPublic() {
+  private static Predicate<JavaMethod> isMethodPublic() {
     return m -> m.getModifiers().contains(JavaModifier.PUBLIC);
   }
 
-  static Predicate<JavaMethod> isMethodNotSynthetic() {
+  private static Predicate<JavaMethod> isMethodNotSynthetic() {
     return not(m -> m.getModifiers().contains(JavaModifier.SYNTHETIC));
   }
 }
