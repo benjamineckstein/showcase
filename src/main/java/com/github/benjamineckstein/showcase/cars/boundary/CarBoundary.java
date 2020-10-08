@@ -15,22 +15,21 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CarBoundary {
 
-    private final CarRepository carRepository;
+  private final CarRepository carRepository;
 
-    @Transactional
-    public List<Car> findCarsByName(String name) {
-        return Optional.ofNullable(name)
-                .map(nameNotNull ->
-                        carRepository
-                                .findAll()
-                                .stream()
-                                .filter(car -> nameNotNull.equals(car.getName())).collect(Collectors.toList()))
-                .orElse(new ArrayList<>());
-    }
+  @Transactional
+  public List<Car> findCarsByName(String name) {
+    return Optional.ofNullable(name)
+        .map(
+            nameNotNull ->
+                carRepository.findAll().stream()
+                    .filter(car -> nameNotNull.equals(car.getName()))
+                    .collect(Collectors.toList()))
+        .orElse(new ArrayList<>());
+  }
 
-    @Transactional
-    public Car createCarWithName(String name) {
-        return carRepository.save(Car.builder().name(name).build());
-    }
-
+  @Transactional
+  public Car createCarWithName(String name) {
+    return carRepository.save(Car.builder().name(name).build());
+  }
 }

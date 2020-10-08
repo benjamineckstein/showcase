@@ -19,20 +19,22 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 @RequiredArgsConstructor
 public class CarController {
 
-    final private CarBoundary carBoundary;
+  private final CarBoundary carBoundary;
 
-    @GetMapping("api/cars/{name}")
-    public ResponseEntity<List<Car>> findCarsByName(@PathVariable String name){
-        return ResponseEntity.ok(carBoundary.findCarsByName(name));
-    }
+  @GetMapping("api/cars/{name}")
+  public ResponseEntity<List<Car>> findCarsByName(@PathVariable String name) {
+    return ResponseEntity.ok(carBoundary.findCarsByName(name));
+  }
 
-    @PostMapping("api/cars/{name}")
-    public ResponseEntity<Car> createCar(@PathVariable String name){
-        Car carWithName = carBoundary.createCarWithName(name);
+  @PostMapping("api/cars/{name}")
+  public ResponseEntity<Car> createCar(@PathVariable String name) {
+    Car carWithName = carBoundary.createCarWithName(name);
 
-        UriComponents uriComponents = MvcUriComponentsBuilder.fromMethodCall(
-                on(CarController.class).findCarsByName(carWithName.getName())).build();
+    UriComponents uriComponents =
+        MvcUriComponentsBuilder.fromMethodCall(
+                on(CarController.class).findCarsByName(carWithName.getName()))
+            .build();
 
-        return ResponseEntity.created(uriComponents.toUri()).body(carWithName);
-    }
+    return ResponseEntity.created(uriComponents.toUri()).body(carWithName);
+  }
 }

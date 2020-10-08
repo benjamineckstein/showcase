@@ -1,6 +1,5 @@
 package com.github.benjamineckstein.showcase.pojo;
 
-
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.rule.Rule;
@@ -26,103 +25,101 @@ import java.util.stream.Stream;
 import static com.github.benjamineckstein.showcase.archunit.CodingRulesTest.SHOWCASECLASSES;
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * check classes with a custom equals and hashcode implementation for correctness.
- */
+/** check classes with a custom equals and hashcode implementation for correctness. */
 class PojoTest {
 
-    private static List<Class<?>> pojoClasses;
+  private static List<Class<?>> pojoClasses;
 
-    @BeforeAll
-    static void setup() {
-        pojoClasses = getPojoClasses();
-    }
+  @BeforeAll
+  static void setup() {
+    pojoClasses = getPojoClasses();
+  }
 
-    @Test
-    void testsThatPojoClassesAreFound() {
-        assertThat(pojoClasses).isNotEmpty();
-    }
+  private static List<Class<?>> getPojoClasses() {
+    // TODO how to identify pojos? Is overwritten equals method enough?
+    return SHOWCASECLASSES.stream()
+        .filter(javaClass -> javaClass.tryGetMethod("equals", Object.class).isPresent())
+        .map(JavaClass::reflect)
+        .collect(Collectors.toList());
+  }
 
-    @TestFactory
-    Stream<DynamicTest> equalsContract() {
-        return pojoClasses.stream()
-                .map(
-                        cl ->
-                                DynamicTest.dynamicTest(
-                                        "Check Hash and Equals for " + cl.getSimpleName(),
-                                        () -> verifyHashAndEquals(cl)));
-    }
+  @Test
+  void testsThatPojoClassesAreFound() {
+    assertThat(pojoClasses).isNotEmpty();
+  }
 
-    @TestFactory
-    Stream<DynamicTest> validateGetters() {
-        return pojoClasses.stream()
-                .map(
-                        cl ->
-                                DynamicTest.dynamicTest(
-                                        "Check Getter exist for " + cl.getSimpleName(),
-                                        () -> validateWithRules(cl, new GetterMustExistRule())));
-    }
+  @TestFactory
+  Stream<DynamicTest> equalsContract() {
+    return pojoClasses.stream()
+        .map(
+            cl ->
+                DynamicTest.dynamicTest(
+                    "Check Hash and Equals for " + cl.getSimpleName(),
+                    () -> verifyHashAndEquals(cl)));
+  }
 
-    @TestFactory
-    Stream<DynamicTest> validateSetters() {
-        return pojoClasses.stream()
-                .map(
-                        cl ->
-                                DynamicTest.dynamicTest(
-                                        "Check Setter for " + cl.getSimpleName(),
-                                        () -> validateWithRules(cl, new SetterMustExistRule())));
-    }
+  @TestFactory
+  Stream<DynamicTest> validateGetters() {
+    return pojoClasses.stream()
+        .map(
+            cl ->
+                DynamicTest.dynamicTest(
+                    "Check Getter exist for " + cl.getSimpleName(),
+                    () -> validateWithRules(cl, new GetterMustExistRule())));
+  }
 
-    @TestFactory
-    Stream<DynamicTest> validateGetAndSet() {
-        return pojoClasses.stream()
-                .map(
-                        cl ->
-                                DynamicTest.dynamicTest(
-                                        "Test set & get " + cl.getSimpleName(),
-                                        () -> validateWithTester(cl, new GetterTester(), new SetterTester())));
-    }
+  @TestFactory
+  Stream<DynamicTest> validateSetters() {
+    return pojoClasses.stream()
+        .map(
+            cl ->
+                DynamicTest.dynamicTest(
+                    "Check Setter for " + cl.getSimpleName(),
+                    () -> validateWithRules(cl, new SetterMustExistRule())));
+  }
 
-    @TestFactory
-    Stream<DynamicTest> validateNoStaticExceptFinalFields() {
-        return pojoClasses.stream()
-                .map(
-                        cl ->
-                                DynamicTest.dynamicTest(
-                                        "Check static fields for " + cl.getSimpleName(),
-                                        () -> validateWithRules(cl, new NoStaticExceptFinalRule())));
-    }
+  @TestFactory
+  Stream<DynamicTest> validateGetAndSet() {
+    return pojoClasses.stream()
+        .map(
+            cl ->
+                DynamicTest.dynamicTest(
+                    "Test set & get " + cl.getSimpleName(),
+                    () -> validateWithTester(cl, new GetterTester(), new SetterTester())));
+  }
 
-    @TestFactory
-    Stream<DynamicTest> validateNoPublicFields() {
-        return pojoClasses.stream()
-                .map(
-                        cl ->
-                                DynamicTest.dynamicTest(
-                                        "Check public fields for " + cl.getSimpleName(),
-                                        () -> validateWithRules(cl, new NoPublicFieldsRule())));
-    }
+  @TestFactory
+  Stream<DynamicTest> validateNoStaticExceptFinalFields() {
+    return pojoClasses.stream()
+        .map(
+            cl ->
+                DynamicTest.dynamicTest(
+                    "Check static fields for " + cl.getSimpleName(),
+                    () -> validateWithRules(cl, new NoStaticExceptFinalRule())));
+  }
 
-    private void validateWithRules(Class<?> cl, Rule... rules) {
-        ValidatorBuilder.create().with(rules).build().validate(PojoClassFactory.getPojoClass(cl));
-    }
+  @TestFactory
+  Stream<DynamicTest> validateNoPublicFields() {
+    return pojoClasses.stream()
+        .map(
+            cl ->
+                DynamicTest.dynamicTest(
+                    "Check public fields for " + cl.getSimpleName(),
+                    () -> validateWithRules(cl, new NoPublicFieldsRule())));
+  }
 
-    private void validateWithTester(Class<?> cl, Tester... testers) {
-        ValidatorBuilder.create().with(testers).build().validate(PojoClassFactory.getPojoClass(cl));
-    }
+  private void validateWithRules(Class<?> cl, Rule... rules) {
+    ValidatorBuilder.create().with(rules).build().validate(PojoClassFactory.getPojoClass(cl));
+  }
 
-    private void verifyHashAndEquals(Class<?> cl) {
-        EqualsVerifier.forClass(cl)
-                .suppress(Warning.NONFINAL_FIELDS, Warning.STRICT_INHERITANCE, Warning.SURROGATE_KEY)
-                .withRedefinedSuperclass()
-                .verify();
-    }
+  private void validateWithTester(Class<?> cl, Tester... testers) {
+    ValidatorBuilder.create().with(testers).build().validate(PojoClassFactory.getPojoClass(cl));
+  }
 
-    private static List<Class<?>> getPojoClasses() {
-        // TODO how to identify pojos? Is overwritten equals method enough?
-        return SHOWCASECLASSES.stream()
-                .filter(javaClass -> javaClass.tryGetMethod("equals", Object.class).isPresent())
-                .map(JavaClass::reflect)
-                .collect(Collectors.toList());
-    }
+  private void verifyHashAndEquals(Class<?> cl) {
+    EqualsVerifier.forClass(cl)
+        .suppress(Warning.NONFINAL_FIELDS, Warning.STRICT_INHERITANCE, Warning.SURROGATE_KEY)
+        .withRedefinedSuperclass()
+        .verify();
+  }
 }

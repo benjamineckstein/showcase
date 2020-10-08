@@ -17,57 +17,56 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 class CarControllerTest {
 
-    @Autowired
-    CarController carController;
-    @Autowired
-    CarRepository carRepository;
+  @Autowired CarController carController;
+  @Autowired CarRepository carRepository;
 
-    @Test
-    void testCreateCarResponse() {
+  @Test
+  void testCreateCarResponse() {
 
-        ResponseEntity<Car> carCreatedResponse = carController.createCar("TestName");
-        assertThat(carCreatedResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(carCreatedResponse.getHeaders().getLocation()).isNotNull().hasPath("/api/cars/TestName");
+    ResponseEntity<Car> carCreatedResponse = carController.createCar("TestName");
+    assertThat(carCreatedResponse.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+    assertThat(carCreatedResponse.getHeaders().getLocation())
+        .isNotNull()
+        .hasPath("/api/cars/TestName");
+  }
 
-    }
+  @Test
+  void testCreateCarPersisted() {
 
-    @Test
-    void testCreateCarPersisted() {
+    ResponseEntity<Car> carCreatedResponse = carController.createCar("TestName");
+    assertThat(carRepository.findAll()).isNotEmpty().containsExactly(carCreatedResponse.getBody());
+  }
 
-        ResponseEntity<Car> carCreatedResponse = carController.createCar("TestName");
-        assertThat(carRepository.findAll()).isNotEmpty().containsExactly(carCreatedResponse.getBody());
-    }
+  @Test
+  void testFindEmptyCarList() {
 
-    @Test
-    void testFindEmptyCarList() {
+    ResponseEntity<List<Car>> carsByName = carController.findCarsByName("");
+    assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        ResponseEntity<List<Car>> carsByName = carController.findCarsByName("");
-        assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
+    List<Car> body = carsByName.getBody();
+    assertThat(body).isNotNull().isEmpty();
+  }
 
-        List<Car> body = carsByName.getBody();
-        assertThat(body).isNotNull().isEmpty();
-    }
+  @Test
+  void testFindOneCarList() {
 
-    @Test
-    void testFindOneCarList() {
+    Car testcar = carRepository.save(Car.builder().name("Testcar").build());
+    ResponseEntity<List<Car>> carsByName = carController.findCarsByName("Testcar");
+    assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        Car testcar = carRepository.save(Car.builder().name("Testcar").build());
-        ResponseEntity<List<Car>> carsByName = carController.findCarsByName("Testcar");
-        assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
+    List<Car> body = carsByName.getBody();
+    assertThat(body).isNotNull().hasSize(1).containsExactly(testcar);
+  }
 
-        List<Car> body = carsByName.getBody();
-        assertThat(body).isNotNull().hasSize(1).containsExactly(testcar);
-    }
+  @Test
+  void testFindNoCarList() {
 
-    @Test
-    void testFindNoCarList() {
+    carRepository.save(Car.builder().name("Testcar").build());
 
-        carRepository.save(Car.builder().name("Testcar").build());
+    ResponseEntity<List<Car>> carsByName = carController.findCarsByName("NonexistingCar");
+    assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        ResponseEntity<List<Car>> carsByName = carController.findCarsByName("NonexistingCar");
-        assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        List<Car> body = carsByName.getBody();
-        assertThat(body).isNotNull().isEmpty();
-    }
+    List<Car> body = carsByName.getBody();
+    assertThat(body).isNotNull().isEmpty();
+  }
 }
