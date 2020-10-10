@@ -1,5 +1,6 @@
 package com.github.benjamineckstein.showcase.skills.controller;
 
+import com.github.benjamineckstein.showcase.skills.dto.SkillCreateDto;
 import com.github.benjamineckstein.showcase.skills.dto.SkillDto;
 import com.github.benjamineckstein.showcase.skills.dto.SkillDtoList;
 import com.github.benjamineckstein.showcase.skills.entity.Skill;
@@ -27,7 +28,7 @@ class SkillsControllerTest {
   @Test
   void testCreateCarResponse() {
 
-    SkillDto skillDto = SkillDto.builder().name("TestSkill").build();
+    SkillCreateDto skillDto = SkillCreateDto.builder().name("TestSkill").build();
     ResponseEntity<SkillDto> response = skillsController.createSkill(skillDto);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     assertThat(response.getHeaders().getLocation()).isNotNull().hasPath("/api/skills/TestSkill");
@@ -36,12 +37,12 @@ class SkillsControllerTest {
   @Test
   void testCreateCarPersisted() {
 
-    SkillDto skillDto = SkillDto.builder().name("TestSkill").build();
+    SkillCreateDto skillDto = SkillCreateDto.builder().name("TestSkill").build();
     ResponseEntity<SkillDto> response = skillsController.createSkill(skillDto);
 
     List<Skill> all = skillsRepository.findAll();
     assertThat(all).isNotEmpty().hasSize(1);
-    assertThat(skillsController.convertToDto(all.get(0))).isEqualTo(response.getBody());
+    assertThat(SkillsController.convertToDto(all.get(0))).isEqualTo(response.getBody());
   }
 
   @Test
