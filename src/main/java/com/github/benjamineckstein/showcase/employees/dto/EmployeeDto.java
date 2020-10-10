@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 public class EmployeeDto {
 
-    private UUID id;
-    private Integer version;
-    private String name;
+  private UUID id;
+  private Integer version;
+  private String name;
 }

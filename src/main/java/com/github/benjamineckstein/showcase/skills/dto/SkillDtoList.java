@@ -1,6 +1,5 @@
 package com.github.benjamineckstein.showcase.skills.dto;
 
-import com.github.benjamineckstein.showcase.skills.entity.Skill;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +14,5 @@ import java.util.List;
 @Builder
 public class SkillDtoList {
 
-    @Builder.Default
-    private List<SkillDto> skills = Collections.emptyList();
+  @Builder.Default private List<SkillDto> skills = Collections.emptyList();
 }

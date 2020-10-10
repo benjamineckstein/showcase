@@ -1,7 +1,6 @@
 package com.github.benjamineckstein.showcase.expertise.dto;
 
-import com.github.benjamineckstein.showcase.employees.dto.EmployeeDto;
-import com.github.benjamineckstein.showcase.skills.dto.SkillDto;
+import com.github.benjamineckstein.showcase.expertise.entity.ExpertiseLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,8 +14,10 @@ import java.util.UUID;
 @Builder
 public class ExpertiseCreateDto {
 
-    private String description;
+  private String description;
 
-    private UUID skillId;
-    private UUID employeeId;
+  private ExpertiseLevel level;
+
+  private UUID skillId;
+  private UUID employeeId;
 }

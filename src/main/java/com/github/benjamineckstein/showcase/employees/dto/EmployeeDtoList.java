@@ -14,6 +14,5 @@ import java.util.List;
 @Builder
 public class EmployeeDtoList {
 
-    @Builder.Default
-    private List<EmployeeDto> skills = Collections.emptyList();
+  @Builder.Default private List<EmployeeDto> employees = Collections.emptyList();
 }

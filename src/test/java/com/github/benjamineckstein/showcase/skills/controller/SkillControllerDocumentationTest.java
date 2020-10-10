@@ -44,12 +44,12 @@ public class SkillControllerDocumentationTest {
   }
 
   @Test
-  public void shouldReturnDefaultMessage() throws Exception {
+  public void shouldDocumentGetSkills() throws Exception {
 
     Skill testskill = skillsRepository.save(Skill.builder().name("Testskill").build());
 
     this.mockMvc
-        .perform(get(Routing.URL_SKILLS_FIND, "Testskill").accept(MediaType.APPLICATION_JSON))
+        .perform(get(Routing.URL_SKILLS, "Testskill").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andDo(
             document(

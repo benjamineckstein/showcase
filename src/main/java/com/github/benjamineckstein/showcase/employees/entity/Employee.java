@@ -1,8 +1,7 @@
 package com.github.benjamineckstein.showcase.employees.entity;
 
-import com.github.benjamineckstein.showcase.expertise.entity.Expertise;
-import com.github.benjamineckstein.showcase.skills.entity.Skill;
 import com.github.benjamineckstein.showcase.common.AbstractUuidEntity;
+import com.github.benjamineckstein.showcase.expertise.entity.Expertise;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,5 +23,4 @@ public class Employee extends AbstractUuidEntity {
 
   @OneToMany(mappedBy = "employee")
   private Set<Expertise> expertise;
-
 }
