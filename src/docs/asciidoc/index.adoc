@@ -1,10 +1,10 @@
 = My Root Document2
 
-include::{snippets}/index/request-body.adoc[]
+include::{snippets}/skillsGetList/request-body.adoc[]
 
 
-include::{snippets}/index/http-request.adoc[]
+include::{snippets}/skillsGetList/http-request.adoc[]
 
-include::{snippets}/index/http-response.adoc[]
+include::{snippets}/skillsGetList/http-response.adoc[]
 
-include::{snippets}/index/response-fields.adoc[]
+include::{snippets}/skillsGetList/response-fields.adoc[]

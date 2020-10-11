@@ -46,10 +46,11 @@ dependencies {
 ext {
 	set('snippetsDir', file('build/generated-snippets'))
 }
+
 asciidoctor {
-	inputs.dir snippetsDir
+
+	setAttributes(['snippets': file('build/generated-snippets')])
 	outputDir  file('build/docs')
-	dependsOn test
 
 }
 
@@ -90,3 +91,4 @@ if (hasProperty('buildScan')) {
 	}
 }
 
+build.dependsOn asciidoctor
