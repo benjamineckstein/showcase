@@ -1,6 +1,6 @@
 package com.github.benjamineckstein.showcase.common;
 
-public class Routing {
+public class RoutingConstants {
 
     /**
      * GET, PUT, DELETE
@@ -35,16 +35,16 @@ public class Routing {
     /**
      * GET
      */
-    public static final String URL_EMPLOYEES_FIND = "/api/employees/{name}";
+    public static final String URL_EMPLOYEES_FIND = "/api/employees/find/{name}";
 
     /**
      * GET
      */
-    public static final String URL_EXPERTISE_SEARCH = "/api/employees/{keyword}";
+    public static final String URL_EXPERTISE_SEARCH = "/api/expertise/find/{keyword}";
 
     /**
      * GET
      */
-    public static final String URL_SKILLS_FIND = "/api/skills/{name}";
+    public static final String URL_SKILLS_FIND = "/api/skills/find/{name}";
 
 }

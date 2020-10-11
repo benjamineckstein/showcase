@@ -1,59 +1,35 @@
 package com.github.benjamineckstein.showcase.skills.controller;
 
-import com.github.benjamineckstein.showcase.common.Routing;
 import com.github.benjamineckstein.showcase.skills.entity.Skill;
-import com.github.benjamineckstein.showcase.skills.repository.SkillsRepository;
-import org.junit.jupiter.api.BeforeEach;
+import com.github.benjamineckstein.showcase.util.AbstractDocumentationTest;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.util.UUID;
 
+import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SKILLS;
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@Transactional
-@ExtendWith(RestDocumentationExtension.class)
-public class SkillControllerDocumentationTest {
-
-  @Autowired SkillsRepository skillsRepository;
-  private MockMvc mockMvc;
-
-  @BeforeEach
-  public void setUp(
-      WebApplicationContext webApplicationContext,
-      RestDocumentationContextProvider restDocumentation) {
-    this.mockMvc =
-        MockMvcBuilders.webAppContextSetup(webApplicationContext)
-            .apply(documentationConfiguration(restDocumentation))
-            .build();
-  }
+public class SkillControllerDocumentationTest extends AbstractDocumentationTest {
 
   @Test
   public void shouldDocumentGetSkills() throws Exception {
 
-    Skill testskill = skillsRepository.save(Skill.builder().name("Testskill").build());
+    Skill skill = testcaseGenerator.testCase1().expertise.getSkill();
 
     this.mockMvc
-        .perform(get(Routing.URL_SKILLS, "Testskill").accept(MediaType.APPLICATION_JSON))
+        .perform(get(URL_SKILLS, skill.getId()).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
+        .andExpect(content().string(containsString(String.valueOf(skill.getId()))))
         .andDo(
             document(
-                "index",
+                "skillsGetList",
                 responseFields(
                     fieldWithPath("skills").description("List of skills"),
                     fieldWithPath("skills[].id").description("Skill UUID").type(UUID.class),

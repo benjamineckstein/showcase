@@ -13,6 +13,9 @@ public interface SearchRepository
     extends org.springframework.data.repository.Repository<Expertise, UUID> {
 
   @Query(
-      "Select e FROM Expertise e JOIN FETCH e.skill JOIN FETCH e.employee where e.description like '%:keyword%' or e.employee.name like '%:keyword%' or e.skill.name like '%:keyword%'")
+      "Select e FROM Expertise e JOIN FETCH e.skill JOIN FETCH e.employee where "
+          + "e.description like '%:keyword%' or "
+          + "e.employee.name like '%:keyword%' or "
+          + "e.skill.name like '%:keyword%'")
   List<Expertise> findExpertiseByKeyWord(@Param("keyword") String keyword);
 }

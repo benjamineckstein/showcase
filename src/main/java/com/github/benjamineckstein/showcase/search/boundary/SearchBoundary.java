@@ -24,7 +24,7 @@ public class SearchBoundary {
   private final SkillsRepository skillsRepository;
 
   @Transactional
-  public List<Employee> findCustomerByName(String name) {
+  public List<Employee> findEmployeesByName(String name) {
     return Optional.ofNullable(name)
         .map(
             nameNotNull ->

@@ -14,6 +14,6 @@ import java.util.UUID;
 public class SkillDto {
 
     private UUID id;
-    private Integer version;
+    private int version;
     private String name;
 }

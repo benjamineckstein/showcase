@@ -1,6 +1,5 @@
 package com.github.benjamineckstein.showcase.expertise.controller;
 
-import com.github.benjamineckstein.showcase.common.Routing;
 import com.github.benjamineckstein.showcase.expertise.boundary.ExpertiseBoundary;
 import com.github.benjamineckstein.showcase.expertise.dto.ExpertiseCreateDto;
 import com.github.benjamineckstein.showcase.expertise.dto.ExpertiseDto;
@@ -21,6 +20,8 @@ import org.springframework.web.util.UriComponents;
 import java.util.List;
 import java.util.UUID;
 
+import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EXPERTISE;
+import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EXPERTISE_ID;
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 @RestController
@@ -29,7 +30,7 @@ public class ExpertiseController {
 
   private final ExpertiseBoundary expertiseBoundary;
 
-  @GetMapping(Routing.URL_EXPERTISE)
+  @GetMapping(URL_EXPERTISE)
   public ResponseEntity<ExpertiseDtoList> getExpertiseList() {
 
     List<Expertise> expertises = expertiseBoundary.getExpertises();
@@ -37,14 +38,14 @@ public class ExpertiseController {
     return ResponseEntity.ok(expertiseDtoList);
   }
 
-  @GetMapping(Routing.URL_EXPERTISE_ID)
+  @GetMapping(URL_EXPERTISE_ID)
   public ResponseEntity<ExpertiseDto> getExpertise(@PathVariable("Uuid") UUID expertiseId) {
     Expertise expertise = expertiseBoundary.findExpertise(expertiseId).orElseThrow();
     ExpertiseDto ExpertiseDto = ExpertiseDtoMapper.convertToDto(expertise);
     return ResponseEntity.ok(ExpertiseDto);
   }
 
-  @PostMapping(Routing.URL_EXPERTISE)
+  @PostMapping(URL_EXPERTISE)
   public ResponseEntity<ExpertiseDto> createExpertise(
       @RequestBody ExpertiseCreateDto expertiseDto) {
     Expertise expertise = expertiseBoundary.createExpertise(expertiseDto);
@@ -58,7 +59,7 @@ public class ExpertiseController {
         .body(ExpertiseDtoMapper.convertToDto(expertise));
   }
 
-  @DeleteMapping(Routing.URL_EXPERTISE_ID)
+  @DeleteMapping(URL_EXPERTISE_ID)
   public ResponseEntity<Void> deleteSkill(@PathVariable("Uuid") UUID expertiseId) {
     expertiseBoundary.deleteExpertise(expertiseId);
     return ResponseEntity.noContent().build();

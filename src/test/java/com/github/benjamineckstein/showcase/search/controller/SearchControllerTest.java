@@ -4,6 +4,9 @@ import com.github.benjamineckstein.showcase.skills.dto.SkillDto;
 import com.github.benjamineckstein.showcase.skills.dto.SkillDtoList;
 import com.github.benjamineckstein.showcase.skills.entity.Skill;
 import com.github.benjamineckstein.showcase.skills.repository.SkillsRepository;
+import com.github.benjamineckstein.showcase.util.MySpringBootTest;
+import com.github.benjamineckstein.showcase.util.Testcase1;
+import com.github.benjamineckstein.showcase.util.TestcaseGenerator;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,29 +18,30 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@Transactional
+@MySpringBootTest
 class SearchControllerTest {
 
   private @Autowired SearchController searchController;
   private @Autowired SkillsRepository skillsRepository;
+  private @Autowired TestcaseGenerator testcaseGenerator;
 
   @Test
-  void testFindEmptyCarList() {
+  void testFindEmptySkillSearchList() {
 
-    ResponseEntity<SkillDtoList> carsByName = searchController.findSkillsByName("");
-    assertThat(carsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
+    ResponseEntity<SkillDtoList> skillsByName = searchController.findSkillsByName("");
+    assertThat(skillsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-    assertThat(carsByName.getBody())
+    assertThat(skillsByName.getBody())
         .isNotNull()
         .extracting(SkillDtoList::getSkills, as(InstanceOfAssertFactories.LIST))
         .isEmpty();
   }
 
   @Test
-  void testFindOneCarList() {
+  void testFindOneSkillList() {
 
-    Skill skill = skillsRepository.save(Skill.builder().name("Testcar").build());
+    Testcase1 testcase1 = testcaseGenerator.testCase1();
+    Skill skill = testcase1.expertise.getSkill();
     SkillDto skillDto =
         SkillDto.builder()
             .id(skill.getId())
@@ -45,7 +49,7 @@ class SearchControllerTest {
             .version(skill.getVersion())
             .build();
 
-    ResponseEntity<SkillDtoList> response = searchController.findSkillsByName("Testcar");
+    ResponseEntity<SkillDtoList> response = searchController.findSkillsByName(skill.getName());
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
     assertThat(response.getBody())
@@ -56,11 +60,11 @@ class SearchControllerTest {
   }
 
   @Test
-  void testFindNoCarList() {
+  void testFindNoSkillList() {
 
-    skillsRepository.save(Skill.builder().name("Testcar").build());
+    testcaseGenerator.testCase1();
 
-    ResponseEntity<SkillDtoList> response = searchController.findSkillsByName("NonexistingCar");
+    ResponseEntity<SkillDtoList> response = searchController.findSkillsByName("NonexistingSkill");
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
     assertThat(response.getBody())

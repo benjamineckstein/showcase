@@ -6,6 +6,7 @@ import com.github.benjamineckstein.showcase.skills.entity.Skill;
 import com.github.benjamineckstein.showcase.skills.repository.SkillsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,10 @@ public class SkillsBoundary {
 
   @Transactional
   public Skill updateSkill(Skill skill) {
+
+    Assert.notNull(skill.getId(), "Skill should always have a valid ID");
+    skillsRepository.findById(skill.getId()).orElseThrow();
+
     skill.setPersisted(true);
     return skillsRepository.save(skill);
   }

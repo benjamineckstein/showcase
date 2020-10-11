@@ -1,20 +1,17 @@
-package com.github.benjamineckstein.showcase.skills.entity;
+package com.github.benjamineckstein.showcase.common;
 
+import com.github.benjamineckstein.showcase.skills.entity.Skill;
 import com.github.benjamineckstein.showcase.skills.repository.SkillsRepository;
+import com.github.benjamineckstein.showcase.util.MySpringBootTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Transactional
-@SpringBootTest
-class SkillTest {
+@MySpringBootTest
+class AbstractUuidEntityTest {
 
-  private @Autowired
-  SkillsRepository skillsRepository;
+  private @Autowired SkillsRepository skillsRepository;
 
   @Test
   void testNoArgConstructor() {
