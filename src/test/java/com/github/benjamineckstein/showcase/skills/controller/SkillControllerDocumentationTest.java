@@ -8,7 +8,7 @@ import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 
 import java.util.UUID;
 
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SKILLS;
+import static com.github.benjamineckstein.showcase.skills.controller.SkillsController.URL_SKILLS;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;

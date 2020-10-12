@@ -12,8 +12,8 @@ import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 
 import java.util.UUID;
 
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EMPLOYEES;
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EMPLOYEES_ID;
+import static com.github.benjamineckstein.showcase.employees.controller.EmployeesController.URL_EMPLOYEES;
+import static com.github.benjamineckstein.showcase.employees.controller.EmployeesController.URL_EMPLOYEES_ID;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;

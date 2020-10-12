@@ -32,7 +32,8 @@ class SkillsControllerTest {
   @Test
   void testCreateSkillResponse() {
 
-    SkillCreateDto skillDto = SkillCreateDto.builder().name("TestSkill").build();
+    SkillCreateDto skillDto = new SkillCreateDto();
+    skillDto.setName("TestSkill");
     ResponseEntity<SkillDto> response = skillsController.createSkill(skillDto);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
 
@@ -46,7 +47,18 @@ class SkillsControllerTest {
   @Test
   void testCreateSkillPersisted() {
 
-    SkillCreateDto skillCreateDto = SkillCreateDto.builder().name("TestSkill").build();
+    SkillCreateDto skillCreateDto = new SkillCreateDto("TestSkill");
+    ResponseEntity<SkillDto> response = skillsController.createSkill(skillCreateDto);
+
+    Skill skill = skillsRepository.findById(getBody(response).getId()).orElseThrow();
+    assertThat(skill.getName()).isEqualTo(skillCreateDto.getName());
+    assertThat(SkillDtoMapper.convertToDto(skill)).isEqualTo(getBody(response));
+  }
+
+  @Test
+  void testCreateSkillEmpty() {
+
+    SkillCreateDto skillCreateDto = SkillCreateDto.builder().build();
     ResponseEntity<SkillDto> response = skillsController.createSkill(skillCreateDto);
 
     Skill skill = skillsRepository.findById(getBody(response).getId()).orElseThrow();

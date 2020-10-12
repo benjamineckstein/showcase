@@ -25,7 +25,7 @@ public class SkillDtoMapper {
         .name(skillDto.getName())
         .id(skillDto.getId())
         .version(skillDto.getVersion())
-        .persisted(skillDto.getVersion() >= 0)
+        //.persisted(skillDto.getVersion() >= 0)
         .build();
   }
 }

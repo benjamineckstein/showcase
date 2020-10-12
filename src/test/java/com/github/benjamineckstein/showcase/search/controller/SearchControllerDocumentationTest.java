@@ -10,9 +10,9 @@ import com.github.benjamineckstein.showcase.util.AbstractDocumentationTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SEARCH_EMPLOYEES;
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SEARCH_EXPERTISE;
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SEARCH_SKILLS;
+import static com.github.benjamineckstein.showcase.search.controller.SearchController.URL_SEARCH_EMPLOYEES;
+import static com.github.benjamineckstein.showcase.search.controller.SearchController.URL_SEARCH_EXPERTISE;
+import static com.github.benjamineckstein.showcase.search.controller.SearchController.URL_SEARCH_SKILLS;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

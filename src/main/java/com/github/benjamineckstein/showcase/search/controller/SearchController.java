@@ -13,15 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SEARCH_EMPLOYEES;
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SEARCH_EXPERTISE;
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SEARCH_SKILLS;
-
 @RestController
 @RequiredArgsConstructor
 public class SearchController {
 
-  private final SearchBoundary seachBoundary;
+    /** GET */
+    public static final String URL_SEARCH_EMPLOYEES = "/api/search/employees/{name}";
+    /** GET */
+    public static final String URL_SEARCH_EXPERTISE = "/api/search/expertise/{keyword}";
+    /** GET */
+    public static final String URL_SEARCH_SKILLS = "/api/search/skills/{name}";
+    private final SearchBoundary seachBoundary;
 
   @GetMapping(URL_SEARCH_SKILLS)
   public ResponseEntity<SkillDtoList> findSkillsByName(@PathVariable String name) {

@@ -21,13 +21,16 @@ import org.springframework.web.util.UriComponents;
 import java.util.List;
 import java.util.UUID;
 
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EMPLOYEES;
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EMPLOYEES_ID;
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 @RestController
 @RequiredArgsConstructor
 public class EmployeesController {
+
+  /** GET, POST */
+  public static final String URL_EMPLOYEES = "/api/employees/";
+  /** GET, PUT, DELETE */
+  public static final String URL_EMPLOYEES_ID = "/api/employees/{Uuid}";
 
   private final EmployeesBoundary employeesBoundary;
 

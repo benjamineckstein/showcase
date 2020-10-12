@@ -21,15 +21,17 @@ import org.springframework.web.util.UriComponents;
 import java.util.List;
 import java.util.UUID;
 
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SKILLS;
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_SKILLS_ID;
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 @RestController
 @RequiredArgsConstructor
 public class SkillsController {
 
-  private final SkillsBoundary skillsBoundary;
+    /** GET, POST, PUT */
+    public static final String URL_SKILLS = "/api/skills/";
+    /** GET, DELETE */
+    public static final String URL_SKILLS_ID = "/api/skills/{Uuid}";
+    private final SkillsBoundary skillsBoundary;
 
   @PostMapping(URL_SKILLS)
   public ResponseEntity<SkillDto> createSkill(@RequestBody SkillCreateDto skillDto) {

@@ -14,8 +14,8 @@ import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 
 import java.util.UUID;
 
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EXPERTISE;
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EXPERTISE_ID;
+import static com.github.benjamineckstein.showcase.expertise.controller.ExpertiseController.URL_EXPERTISE;
+import static com.github.benjamineckstein.showcase.expertise.controller.ExpertiseController.URL_EXPERTISE_ID;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;

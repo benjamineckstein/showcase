@@ -26,7 +26,7 @@ public class EmployeeDtoMapper {
         .name(employeeDto.getName())
         .id(employeeDto.getId())
         .version(employeeDto.getVersion())
-        .persisted(employeeDto.getVersion() >= 0)
+        //.persisted(employeeDto.getVersion() >= 0)
         .build();
   }
 }

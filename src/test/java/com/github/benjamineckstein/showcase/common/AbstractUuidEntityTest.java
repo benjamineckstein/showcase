@@ -1,10 +1,16 @@
 package com.github.benjamineckstein.showcase.common;
 
+import com.github.benjamineckstein.showcase.ShowcaseApplication;
+import com.github.benjamineckstein.showcase.employees.entity.Employee;
+import com.github.benjamineckstein.showcase.expertise.entity.Expertise;
 import com.github.benjamineckstein.showcase.skills.entity.Skill;
 import com.github.benjamineckstein.showcase.skills.repository.SkillsRepository;
 import com.github.benjamineckstein.showcase.util.MySpringBootTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,22 +21,49 @@ class AbstractUuidEntityTest {
 
   @Test
   void testNoArgConstructor() {
-    Skill testcar = new Skill();
-    testcar.setName("Name");
-    assertThat(testcar.getId()).isNotNull();
+    Skill testSkill = new Skill();
+    testSkill.setName("Name");
+    assertThat(testSkill.getId()).isNotNull();
+  }
+
+  @Test
+  void testNoArgConstructorEmployee() {
+    Employee enitity = new Employee();
+    enitity.setName("Name");
+    assertThat(enitity.getId()).isNotNull();
+  }
+
+  @Test
+  void testNoArgConstructorExpertise() {
+    Expertise enitity = new Expertise();
+    assertThat(enitity.getId()).isNotNull();
   }
 
   @Test
   void testUUIDIsGenerated() {
-    Skill testcar = Skill.builder().build();
-    assertThat(testcar.getId()).isNotNull();
+    Skill testSkill = Skill.builder().build();
+    assertThat(testSkill.getId()).isNotNull();
+  }
+
+
+  @Test
+  void testUUIDIsGeneratedBaseClass() {
+    AbstractUuidEntity abstractUuidEntity = AbstractUuidEntity.builder().build();
+    assertThat(abstractUuidEntity.getId()).isNotNull();
+  }
+
+  @Test
+  void testUUIDIsGeneratedRandomly() {
+    AbstractUuidEntity abstractUuidEntity = new AbstractUuidEntity();
+    AbstractUuidEntity abstractUuidEntity2 = new AbstractUuidEntity();
+    assertThat(abstractUuidEntity.getId()).isNotNull().isNotEqualTo(abstractUuidEntity2.getId());
   }
 
   @Test
   void testIsPersistedForNewEntity() {
-    Skill testcar = Skill.builder().build();
-    assertThat(testcar.isPersisted()).isFalse();
-    assertThat(testcar.isNew()).isTrue();
+    Skill testSkill = Skill.builder().build();
+    assertThat(testSkill.isPersisted()).isFalse();
+    assertThat(testSkill.isNew()).isTrue();
   }
 
   @Test
@@ -43,10 +76,10 @@ class AbstractUuidEntityTest {
 
   @Test
   void testVersionStartsAtZero() {
-    Skill testcar = Skill.builder().build();
-    assertThat(testcar.getVersion()).isNull();
+    Skill testSkill = Skill.builder().build();
+    assertThat(testSkill.getVersion()).isNull();
 
-    assertThat(skillsRepository.save(testcar).getVersion()).isEqualTo(0);
+    assertThat(skillsRepository.save(testSkill).getVersion()).isEqualTo(0);
   }
 
   @Test

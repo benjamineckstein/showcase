@@ -22,15 +22,18 @@ import org.springframework.web.util.UriComponents;
 import java.util.List;
 import java.util.UUID;
 
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EXPERTISE;
-import static com.github.benjamineckstein.showcase.common.RoutingConstants.URL_EXPERTISE_ID;
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 @RestController
 @RequiredArgsConstructor
 public class ExpertiseController {
 
-  private final ExpertiseBoundary expertiseBoundary;
+    /** GET, PUT, DELETE */
+    public static final String URL_EXPERTISE_ID = "/api/expertise/{Uuid}";
+    /** GET, POST */
+    public static final String URL_EXPERTISE = "/api/expertise/";
+
+    private final ExpertiseBoundary expertiseBoundary;
 
   @GetMapping(URL_EXPERTISE)
   public ResponseEntity<ExpertiseDtoList> getExpertiseList() {
