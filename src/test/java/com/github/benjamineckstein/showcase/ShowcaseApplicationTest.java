@@ -18,7 +18,7 @@ class ShowcaseApplicationTest {
   @Test
   void testDefaultConstructor() {
     // one silly test to get class coverage
-    assertThat(new ShowcaseApplicationTest()).isNotNull();
+    assertThat(new ShowcaseApplication()).isNotNull();
     assertThat(new EmployeeDtoMapper()).isNotNull();
     assertThat(new ExpertiseDtoMapper()).isNotNull();
     assertThat(new SkillDtoMapper()).isNotNull();
