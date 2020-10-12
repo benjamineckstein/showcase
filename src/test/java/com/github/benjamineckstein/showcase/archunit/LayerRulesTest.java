@@ -4,6 +4,7 @@ import com.tngtech.archunit.library.Architectures;
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import static com.github.benjamineckstein.showcase.archunit.CodingRulesTest.SHOWCASECLASSES;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
@@ -43,6 +44,23 @@ class LayerRulesTest {
         .should()
         .accessClassesThat()
         .resideInAnyPackage("..controller..", "..services..", "respository..")
+        .check(SHOWCASECLASSES);
+  }
+
+  @Test
+  void noUnwantedNewPackages() {
+    noClasses()
+        .that()
+        .areNotAnnotatedWith(SpringBootApplication.class)
+        .should()
+        .resideOutsideOfPackages(
+            "..controller",
+            "..boundary",
+            "..repository",
+            "..entity",
+            "..dto",
+            "..common",
+            "..architecture")
         .check(SHOWCASECLASSES);
   }
 
