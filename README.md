@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/benjamineckstein/showcase/branch/main/graph/badge.svg)](https://codecov.io/gh/benjamineckstein/showcase)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e556f5bf22834f8792109a59587fe7e0)](https://app.codacy.com/gh/benjamineckstein/showcase?utm_source=github.com&utm_medium=referral&utm_content=benjamineckstein/showcase&utm_campaign=Badge_Grade)
 [![Code Inspector](https://www.code-inspector.com/project/14288/score/svg)](https://frontend.code-inspector.com/public/project/14288/showcase/dashboard)
+![Lines of code](https://img.shields.io/tokei/lines/github/benjamineckstein/showcase?label=Lines%20of%20Code&style=flat-square)
 
 Showcase with a minimal spring boot application showing what you can do with a little bit of extra testing
 
