@@ -10,11 +10,10 @@ import com.github.benjamineckstein.showcase.util.TestcaseGenerator;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 
+import static com.github.benjamineckstein.showcase.util.Testhelper.getBody;
 import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,10 +27,10 @@ class SearchControllerTest {
   @Test
   void testFindEmptySkillSearchList() {
 
-    ResponseEntity<SkillDtoList> skillsByName = searchController.findSkillsByName("");
-    assertThat(skillsByName.getStatusCode()).isEqualTo(HttpStatus.OK);
+    ResponseEntity<SkillDtoList> responseEntity = searchController.findSkillsByName("");
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-    assertThat(skillsByName.getBody())
+    assertThat(getBody(responseEntity))
         .isNotNull()
         .extracting(SkillDtoList::getSkills, as(InstanceOfAssertFactories.LIST))
         .isEmpty();
@@ -52,7 +51,7 @@ class SearchControllerTest {
     ResponseEntity<SkillDtoList> response = searchController.findSkillsByName(skill.getName());
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-    assertThat(response.getBody())
+    assertThat(getBody(response))
         .isNotNull()
         .extracting(SkillDtoList::getSkills, as(InstanceOfAssertFactories.LIST))
         .hasSize(1)
@@ -67,7 +66,7 @@ class SearchControllerTest {
     ResponseEntity<SkillDtoList> response = searchController.findSkillsByName("NonexistingSkill");
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-    assertThat(response.getBody())
+    assertThat(getBody(response))
         .isNotNull()
         .extracting(SkillDtoList::getSkills, as(InstanceOfAssertFactories.LIST))
         .isEmpty();

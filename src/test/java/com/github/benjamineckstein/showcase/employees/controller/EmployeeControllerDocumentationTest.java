@@ -27,14 +27,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class EmployeeControllerDocumentationTest extends AbstractDocumentationTest {
 
-  private static final ResponseFieldsSnippet responseDtoListFields =
+  public static final ResponseFieldsSnippet responseDtoListFields =
       responseFields(
           fieldWithPath("employees").description("List of employees"),
           fieldWithPath("employees[].id").description("Employee UUID").type(UUID.class),
           fieldWithPath("employees[].version").description("Entity version for optimistic locking"),
           fieldWithPath("employees[].name").description("Employee name"));
 
-  private static final ResponseFieldsSnippet responseDtoFields =
+  public static final ResponseFieldsSnippet responseDtoFields =
       responseFields(
           fieldWithPath("id").description("Employee UUID").type(UUID.class),
           fieldWithPath("version").description("Entity version for optimistic locking"),

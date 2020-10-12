@@ -8,16 +8,17 @@ import com.github.benjamineckstein.showcase.skills.entity.Skill;
 import com.github.benjamineckstein.showcase.skills.repository.SkillsRepository;
 import com.github.benjamineckstein.showcase.util.MySpringBootTest;
 import com.github.benjamineckstein.showcase.util.TestcaseGenerator;
+import com.github.benjamineckstein.showcase.util.Testhelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
+import static com.github.benjamineckstein.showcase.util.Testhelper.getBody;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -34,20 +35,23 @@ class SkillsControllerTest {
     SkillCreateDto skillDto = SkillCreateDto.builder().name("TestSkill").build();
     ResponseEntity<SkillDto> response = skillsController.createSkill(skillDto);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+
+    String expectedUrl = "/api/skills/" + getBody(response).getId().toString();
+
     assertThat(response.getHeaders().getLocation())
         .isNotNull()
-        .matches(uri -> uri.getRawPath().contains("/api/skills/"));
+        .matches(uri -> uri.getRawPath().contains(expectedUrl));
   }
 
   @Test
   void testCreateSkillPersisted() {
 
-    SkillCreateDto skillDto = SkillCreateDto.builder().name("TestSkill").build();
-    ResponseEntity<SkillDto> response = skillsController.createSkill(skillDto);
+    SkillCreateDto skillCreateDto = SkillCreateDto.builder().name("TestSkill").build();
+    ResponseEntity<SkillDto> response = skillsController.createSkill(skillCreateDto);
 
-    List<Skill> all = skillsRepository.findAll();
-    assertThat(all).isNotEmpty().hasSize(1);
-    assertThat(SkillDtoMapper.convertToDto(all.get(0))).isEqualTo(response.getBody());
+    Skill skill = skillsRepository.findById(getBody(response).getId()).orElseThrow();
+    assertThat(skill.getName()).isEqualTo(skillCreateDto.getName());
+    assertThat(SkillDtoMapper.convertToDto(skill)).isEqualTo(getBody(response));
   }
 
   @Test
@@ -59,7 +63,7 @@ class SkillsControllerTest {
     assertThat(response).isNotNull();
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-    SkillDto body = response.getBody();
+    SkillDto body = getBody(response);
     assertThat(body).isNotNull().isEqualTo(SkillDtoMapper.convertToDto(skill));
   }
 
@@ -80,7 +84,7 @@ class SkillsControllerTest {
     assertThat(response).isNotNull();
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-    SkillDto body = response.getBody();
+    SkillDto body = getBody(response);
     assertThat(body).isNotNull().isEqualTo(SkillDtoMapper.convertToDto(skill));
 
     assertThat(skillsRepository.findById(skill.getId()).orElseThrow().getName())
@@ -134,9 +138,11 @@ class SkillsControllerTest {
     assertThat(response).isNotNull();
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-    assertThat(response.getBody()).isNotNull();
-    SkillDtoList body = response.getBody();
-    assertThat(body.getSkills()).isNotNull().hasSize(1).containsExactly(SkillDtoMapper.convertToDto(skill));
+    SkillDtoList body = getBody(response);
+    assertThat(body.getSkills())
+        .isNotNull()
+        .hasSize(1)
+        .containsExactly(SkillDtoMapper.convertToDto(skill));
   }
 
   @Test
@@ -147,8 +153,7 @@ class SkillsControllerTest {
     assertThat(response).isNotNull();
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-    assertThat(response.getBody()).isNotNull();
-    SkillDtoList body = response.getBody();
+    SkillDtoList body = getBody(response);
     assertThat(body.getSkills()).isNotNull().isEmpty();
   }
 }

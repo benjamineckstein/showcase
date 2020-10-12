@@ -4,6 +4,7 @@ import com.github.benjamineckstein.showcase.architecture.Boundary;
 import com.github.benjamineckstein.showcase.employees.boundary.EmployeesBoundary;
 import com.github.benjamineckstein.showcase.expertise.dto.ExpertiseCreateDto;
 import com.github.benjamineckstein.showcase.expertise.entity.Expertise;
+import com.github.benjamineckstein.showcase.expertise.entity.ExpertiseLevel;
 import com.github.benjamineckstein.showcase.expertise.repository.ExpertiseRepository;
 import com.github.benjamineckstein.showcase.skills.boundary.SkillsBoundary;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +48,14 @@ public class ExpertiseBoundary {
   @Transactional
   public List<Expertise> getExpertises() {
     return expertiseRepository.findAll();
+  }
+
+  @Transactional
+  public Expertise updateExpertise(UUID id, String description, ExpertiseLevel level, int version) {
+    Expertise expertise = expertiseRepository.findById(id).orElseThrow();
+    expertise.setVersion(version);
+    expertise.setLevel(level);
+    expertise.setDescription(description);
+    return expertiseRepository.save(expertise);
   }
 }

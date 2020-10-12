@@ -5,6 +5,7 @@ import com.github.benjamineckstein.showcase.expertise.dto.ExpertiseCreateDto;
 import com.github.benjamineckstein.showcase.expertise.dto.ExpertiseDto;
 import com.github.benjamineckstein.showcase.expertise.dto.ExpertiseDtoList;
 import com.github.benjamineckstein.showcase.expertise.dto.ExpertiseDtoMapper;
+import com.github.benjamineckstein.showcase.expertise.dto.ExpertiseUpdateDto;
 import com.github.benjamineckstein.showcase.expertise.entity.Expertise;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -57,6 +59,18 @@ public class ExpertiseController {
 
     return ResponseEntity.created(uriComponents.toUri())
         .body(ExpertiseDtoMapper.convertToDto(expertise));
+  }
+
+  @PutMapping(URL_EXPERTISE)
+  public ResponseEntity<ExpertiseDto> updateExpertise(
+      @RequestBody ExpertiseUpdateDto expertiseUpdateDto) {
+    Expertise expertise =
+        expertiseBoundary.updateExpertise(
+            expertiseUpdateDto.getId(),
+            expertiseUpdateDto.getDescription(),
+            expertiseUpdateDto.getLevel(),
+            expertiseUpdateDto.getVersion());
+    return ResponseEntity.ok(ExpertiseDtoMapper.convertToDto(expertise));
   }
 
   @DeleteMapping(URL_EXPERTISE_ID)

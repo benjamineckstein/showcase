@@ -20,17 +20,9 @@ public class ExpertiseDtoMapper {
         .description(expertise.getDescription())
         .id(expertise.getId())
         .version(expertise.getVersion())
+        .level(expertise.getLevel())
         .employee(EmployeeDtoMapper.convertToDto(expertise.getEmployee()))
         .skill(SkillDtoMapper.convertToDto(expertise.getSkill()))
-        .build();
-  }
-
-  public static Expertise convertToEntity(ExpertiseDto expertiseDto) {
-    return Expertise.builder()
-        .description(expertiseDto.getDescription())
-        .id(expertiseDto.getId())
-        .version(expertiseDto.getVersion())
-        .persisted(expertiseDto.getVersion() >= 0)
         .build();
   }
 }
