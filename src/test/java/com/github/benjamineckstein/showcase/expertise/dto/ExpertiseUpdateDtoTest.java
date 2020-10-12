@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ExpertiseUpdateDtoTest {
 
   @Test
-  public void shouldCancelEditNonExistingExpertise() throws Exception {
+  public void allArgsConstructorShouldWorkAsIntended() {
 
     ExpertiseUpdateDto expertiseUpdateDto = new ExpertiseUpdateDto();
     expertiseUpdateDto.setId(UUID.randomUUID());

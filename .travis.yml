@@ -14,7 +14,7 @@ cache:
     - $HOME/.gradle/wrapper/
 
 jdk:
-  - oraclejdk11
+  - oraclejdk15
 script:
   - ./gradlew build --scan -s
 after_success:
