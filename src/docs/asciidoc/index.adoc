@@ -1,10 +1,63 @@
-= My Root Document2
+= Api Documentation "Showcase"
+
+== Employees
+
+=== get Employees
+
+include::{snippets}/employeesGet/request-body.adoc[]
+
+include::{snippets}/employeesGet/http-request.adoc[]
+
+include::{snippets}/employeesGet/http-response.adoc[]
+
+include::{snippets}/employeesGet/response-fields.adoc[]
+
+=== create Employee
+
+include::{snippets}/employeeCreate/request-body.adoc[]
+
+include::{snippets}/employeeCreate/http-request.adoc[]
+
+include::{snippets}/employeeCreate/http-response.adoc[]
+
+include::{snippets}/employeeCreate/response-fields.adoc[]
+
+=== get single Employee
+
+include::{snippets}/employeeGet/request-body.adoc[]
+
+include::{snippets}/employeeGet/http-request.adoc[]
+
+include::{snippets}/employeeGet/http-response.adoc[]
+
+include::{snippets}/employeeGet/response-fields.adoc[]
+
+=== edit Employee
+
+include::{snippets}/employeeEdit/request-body.adoc[]
+
+include::{snippets}/employeeEdit/http-request.adoc[]
+
+include::{snippets}/employeeEdit/http-response.adoc[]
+
+include::{snippets}/employeeEdit/response-fields.adoc[]
+
+=== delete Employee
+
+include::{snippets}/employeeDelete/http-request.adoc[]
+
+include::{snippets}/employeeDelete/http-response.adoc[]
+
+
+== Skills
+
+=== get Skills
 
 include::{snippets}/skillsGetList/request-body.adoc[]
-
 
 include::{snippets}/skillsGetList/http-request.adoc[]
 
 include::{snippets}/skillsGetList/http-response.adoc[]
 
 include::{snippets}/skillsGetList/response-fields.adoc[]
+

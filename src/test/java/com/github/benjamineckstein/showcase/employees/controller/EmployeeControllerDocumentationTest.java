@@ -49,7 +49,7 @@ public class EmployeeControllerDocumentationTest extends AbstractDocumentationTe
         .perform(get(URL_EMPLOYEES_ID, employee.getId()).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(content().string(containsString(String.valueOf(employee.getId()))))
-        .andDo(document("employeesGetList", responseDtoFields));
+        .andDo(document("employeeGet", responseDtoFields));
   }
 
   @Test
