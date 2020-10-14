@@ -16,6 +16,6 @@ cache:
 jdk:
   - oraclejdk11
 script:
-  - ./gradlew build --scan -s
+  - ./gradlew build --scan -s -PisCI=true
 after_success:
   - bash <(curl -s https://codecov.io/bash)

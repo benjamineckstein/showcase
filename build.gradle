@@ -1,12 +1,10 @@
-
-
 plugins {
-	id 'org.springframework.boot' version '2.3.4.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-	id 'java'
-	id 'jacoco'
-	id 'info.solidsoft.pitest' version '1.5.1'
-	id 'org.asciidoctor.jvm.convert' version '3.2.0'
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+    id 'jacoco'
+    id 'info.solidsoft.pitest' version '1.5.1'
+    id 'org.asciidoctor.jvm.convert' version '3.2.0'
 }
 
 group = 'com.github.benjamineckstein'
@@ -14,81 +12,86 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	compileOnly "org.springframework.boot:spring-boot-devtools"
-	runtimeOnly 'com.h2database:h2'
-	annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    compileOnly "org.springframework.boot:spring-boot-devtools"
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.projectlombok:lombok'
 
-	testImplementation 'com.tngtech.archunit:archunit:0.14.1'
-	testImplementation 'com.openpojo:openpojo:0.8.13'
-	testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.4.3'
+    testImplementation 'com.tngtech.archunit:archunit:0.14.1'
+    testImplementation 'com.openpojo:openpojo:0.8.13'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.4.3'
 
-	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'
-	testImplementation 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'org.projectlombok:lombok'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 
 }
 
 ext {
-	set('snippetsDir', file('build/generated-snippets'))
+    set('snippetsDir', file('build/generated-snippets'))
 }
 
 asciidoctor {
 
-	setAttributes(['snippets': file('build/generated-snippets')])
-	outputDir  file('build/docs')
+    setAttributes(['snippets': file('build/generated-snippets')])
+    outputDir file('build/docs')
 
 }
 
 test {
-	useJUnitPlatform()
-	outputs.dir snippetsDir
-	finalizedBy jacocoTestReport // report is always generated after tests run
-	finalizedBy asciidoctor
-}
+    useJUnitPlatform()
+    outputs.dir snippetsDir
+    finalizedBy jacocoTestReport // report is always generated after tests run
+    finalizedBy asciidoctor
 
-jacocoTestReport {
-	reports {
-		xml.enabled true
+	jacoco {
+		enabled = project.hasProperty("isCI")
 	}
 }
 
+
 jacocoTestReport {
-	dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.enabled true
+    }
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 }
 
 pitest {
-	// testSourceSets = [sourceSets.test]
-	// mainSourceSets = [sourceSets.main]
-	// jvmArgs = ['-Xmx1024m']
-	testPlugin = "junit5"
-	junit5PluginVersion = '0.12'
-	excludedTestClasses = ["com.github.benjamineckstein.showcase.pojo.**","com.github.benjamineckstein.showcase.ShowcaseApplicationTest"]
-	mutators = ["ALL"]
+    // testSourceSets = [sourceSets.test]
+    // mainSourceSets = [sourceSets.main]
+    // jvmArgs = ['-Xmx1024m']
+    testPlugin = "junit5"
+    junit5PluginVersion = '0.12'
+    excludedTestClasses = ["com.github.benjamineckstein.showcase.pojo.**", "com.github.benjamineckstein.showcase.ShowcaseApplicationTest"]
+    mutators = ["ALL"]
 }
 
 
 if (hasProperty('buildScan')) {
-	gradleEnterprise {
-		buildScan {
-			termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-			termsOfServiceAgree = 'yes'
-		}
-	}
+    gradleEnterprise {
+        buildScan {
+            termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+            termsOfServiceAgree = 'yes'
+        }
+    }
 }
 
 build.dependsOn asciidoctor
