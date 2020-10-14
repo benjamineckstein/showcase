@@ -38,4 +38,4 @@ Do not waste time writing boring and repeating tests. Go one step further and au
  * Verify that equal and hashcode implementations work as expected 
  * even if you add new fields to your pojo.  
 
-Automated Pojo testing is implemented with <https://github.com/OpenPojo/openpojo>
+Automated Pojo testing is implemented with <https://github.com/OpenPojo/openpojo> and <https://jqno.nl/equalsverifier/>
