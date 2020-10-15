@@ -37,7 +37,7 @@ public class ExpertiseBoundary {
 
   @Transactional
   public Optional<Expertise> findExpertise(UUID expertiseId) {
-    return expertiseRepository.findById(expertiseId);
+    return expertiseRepository.findByIdAndFetch(expertiseId);
   }
 
   @Transactional
@@ -47,7 +47,7 @@ public class ExpertiseBoundary {
 
   @Transactional
   public List<Expertise> getExpertises() {
-    return expertiseRepository.findAll();
+    return expertiseRepository.findAllAndFetch();
   }
 
   @Transactional

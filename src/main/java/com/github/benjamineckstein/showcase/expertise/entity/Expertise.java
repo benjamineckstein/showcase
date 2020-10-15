@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,11 +30,13 @@ public class Expertise extends AbstractUuidEntity {
   @Column
   private ExpertiseLevel level;
 
+  @NonNull
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "employee_id")
+  @JoinColumn(name = "employee_id", nullable = false)
   private Employee employee;
 
+  @NonNull
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "skill_id")
+  @JoinColumn(name = "skill_id", nullable = false)
   private Skill skill;
 }

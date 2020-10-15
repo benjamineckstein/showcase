@@ -8,7 +8,6 @@ import com.github.benjamineckstein.showcase.skills.entity.Skill;
 import com.github.benjamineckstein.showcase.skills.repository.SkillsRepository;
 import com.github.benjamineckstein.showcase.util.MySpringBootTest;
 import com.github.benjamineckstein.showcase.util.TestcaseGenerator;
-import com.github.benjamineckstein.showcase.util.Testhelper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,7 @@ import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
-import static com.github.benjamineckstein.showcase.util.Testhelper.getBody;
+import static com.github.benjamineckstein.showcase.util.TestHelper.getBody;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

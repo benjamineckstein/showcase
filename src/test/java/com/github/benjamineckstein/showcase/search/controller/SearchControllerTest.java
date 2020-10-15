@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import static com.github.benjamineckstein.showcase.util.Testhelper.getBody;
+import static com.github.benjamineckstein.showcase.util.TestHelper.getBody;
 import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -14,8 +14,8 @@ public interface SearchRepository extends CrudRepository<Expertise, UUID> {
 
   @Query(
       "Select e FROM Expertise e JOIN FETCH e.skill JOIN FETCH e.employee where "
-          + "e.description like CONCAT('%',:keyword,'%') or "
-          + "e.employee.name like CONCAT('%',:keyword,'%') or "
-          + "e.skill.name like CONCAT('%',:keyword,'%')")
+          + "lower(e.description) like lower(CONCAT('%',:keyword,'%')) or "
+          + "lower(e.employee.name) like lower(CONCAT('%',:keyword,'%')) or "
+          + "lower(e.skill.name) like lower(CONCAT('%',:keyword,'%'))")
   List<Expertise> findExpertiseByKeyWord(@Param("keyword") String keyword);
 }
