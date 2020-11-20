@@ -39,3 +39,6 @@ Do not waste time writing boring and repeating tests. Go one step further and au
  * even if you add new fields to your pojo.  
 
 Automated Pojo testing is implemented with <https://github.com/OpenPojo/openpojo> and <https://jqno.nl/equalsverifier/>
+
+### Credits
+This showcase was sponsored by my current employer Novatec Consulting GmbH https://www.novatec-gmbh.de/en/
