@@ -28,12 +28,12 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 @RequiredArgsConstructor
 public class ExpertiseController {
 
-    /** GET, PUT, DELETE */
-    public static final String URL_EXPERTISE_ID = "/api/expertise/{Uuid}";
-    /** GET, POST */
-    public static final String URL_EXPERTISE = "/api/expertise/";
+  /** GET, PUT, DELETE */
+  public static final String URL_EXPERTISE_ID = "/api/expertise/{Uuid}";
+  /** GET, POST */
+  public static final String URL_EXPERTISE = "/api/expertise/";
 
-    private final ExpertiseBoundary expertiseBoundary;
+  private final ExpertiseBoundary expertiseBoundary;
 
   @GetMapping(URL_EXPERTISE)
   public ResponseEntity<ExpertiseDtoList> getExpertiseList() {
@@ -78,6 +78,9 @@ public class ExpertiseController {
 
   @DeleteMapping(URL_EXPERTISE_ID)
   public ResponseEntity<Void> deleteSkill(@PathVariable("Uuid") UUID expertiseId) {
+    // DOES 100% test coverage mean free of bugs?
+    // line covered by tests, but the effect is not asserted -> see mutation tests
+    // you can remove this line and tests will still pass
     expertiseBoundary.deleteExpertise(expertiseId);
     return ResponseEntity.noContent().build();
   }

@@ -81,7 +81,7 @@ pitest {
     testPlugin = "junit5"
     junit5PluginVersion = '0.12'
     excludedTestClasses = ["com.github.benjamineckstein.showcase.pojo.**", "com.github.benjamineckstein.showcase.ShowcaseApplicationTest"]
-    mutators = ["ALL"]
+    // mutators = ["ALL"]
 }
 
 
