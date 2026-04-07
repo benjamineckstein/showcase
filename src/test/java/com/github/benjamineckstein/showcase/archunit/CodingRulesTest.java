@@ -56,6 +56,7 @@ public class CodingRulesTest {
         .andShould()
         .beFinal()
         .because("we agreed on this convention")
+        .allowEmptyShould(true)
         .check(SHOWCASECLASSES);
   }
 

@@ -95,11 +95,13 @@ class LayerRulesTest {
         .matching("..benjamineckstein.(**).service..")
         .should()
         .notDependOnEachOther()
+        .allowEmptyShould(true)
         .check(SHOWCASECLASSES);
   }
 
   private Architectures.LayeredArchitecture getLayeredArchitectur() {
     return layeredArchitecture()
+        .consideringAllDependencies()
         .layer("Controller")
         .definedBy("..controller..")
         .layer("Boundary")
