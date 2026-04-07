@@ -1,7 +1,6 @@
 # Showcase
 
 [![Java CI](https://github.com/benjamineckstein/showcase/actions/workflows/java_ci.yml/badge.svg)](https://github.com/benjamineckstein/showcase/actions/workflows/java_ci.yml)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=benjamineckstein_showcase&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=benjamineckstein_showcase)
 
 Showcase with a minimal Spring Boot application demonstrating what you can achieve with a little extra testing effort — including **100% test coverage** enforced by mutation testing.
 
