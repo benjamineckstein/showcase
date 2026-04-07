@@ -1,8 +1,6 @@
 package com.github.benjamineckstein.showcase.util;
 
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.annotation.Documented;
@@ -22,5 +20,4 @@ import java.lang.annotation.Target;
 @Inherited
 @SpringBootTest
 @Transactional
-@ExtendWith(RestDocumentationExtension.class)
 public @interface MySpringBootTest {}

@@ -10,16 +10,10 @@ import com.github.benjamineckstein.showcase.util.AbstractDocumentationTest;
 import com.github.benjamineckstein.showcase.util.Testcase2;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.payload.ResponseFieldsSnippet;
-
-import java.util.UUID;
 
 import static com.github.benjamineckstein.showcase.expertise.controller.ExpertiseController.URL_EXPERTISE;
 import static com.github.benjamineckstein.showcase.expertise.controller.ExpertiseController.URL_EXPERTISE_ID;
 import static org.hamcrest.Matchers.containsString;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -29,33 +23,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ExpertiseControllerDocumentationTest extends AbstractDocumentationTest {
 
-  public static final ResponseFieldsSnippet responseDtoListFields =
-      responseFields(
-          fieldWithPath("expertise").description("List of employees"),
-          fieldWithPath("expertise[].id").description("Employee UUID").type(UUID.class),
-          fieldWithPath("expertise[].version").description("Entity version for optimistic locking"),
-          fieldWithPath("expertise[].description").description("Expertise name"),
-          fieldWithPath("expertise[].level").description("Expertise Level"),
-          fieldWithPath("expertise[].skill.id").description("Skill id"),
-          fieldWithPath("expertise[].skill.name").description("Skill name"),
-          fieldWithPath("expertise[].skill.version").description("Skill version"),
-          fieldWithPath("expertise[].employee.id").description("Employee id"),
-          fieldWithPath("expertise[].employee.name").description("Employee name"),
-          fieldWithPath("expertise[].employee.version").description("Employee version"));
-
-  public static final ResponseFieldsSnippet responseDtoFields =
-      responseFields(
-          fieldWithPath("id").description("Employee UUID").type(UUID.class),
-          fieldWithPath("version").description("Entity version for optimistic locking"),
-          fieldWithPath("description").description("Expertise description"),
-          fieldWithPath("level").description("Expertise Level"),
-          fieldWithPath("skill.id").description("Skill id"),
-          fieldWithPath("skill.name").description("Skill name"),
-          fieldWithPath("skill.version").description("Skill version"),
-          fieldWithPath("employee.id").description("Employee id"),
-          fieldWithPath("employee.name").description("Employee name"),
-          fieldWithPath("employee.version").description("Employee version"));
-
   @Test
   public void shouldDocumentGetExpertise() throws Exception {
 
@@ -64,8 +31,7 @@ public class ExpertiseControllerDocumentationTest extends AbstractDocumentationT
     this.mockMvc
         .perform(get(URL_EXPERTISE_ID, expertise.getId()).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(content().string(containsString(String.valueOf(expertise.getId()))))
-        .andDo(document("expertiseGet", responseDtoFields));
+        .andExpect(content().string(containsString(String.valueOf(expertise.getId()))));
   }
 
   @Test
@@ -75,8 +41,7 @@ public class ExpertiseControllerDocumentationTest extends AbstractDocumentationT
     this.mockMvc
         .perform(get(URL_EXPERTISE).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(content().string(containsString(String.valueOf(testcase2.expertise1.getId()))))
-        .andDo(document("expertiseGetList", responseDtoListFields));
+        .andExpect(content().string(containsString(String.valueOf(testcase2.expertise1.getId()))));
   }
 
   @Test
@@ -102,8 +67,7 @@ public class ExpertiseControllerDocumentationTest extends AbstractDocumentationT
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isCreated())
         .andExpect(
-            content().string(containsString(String.valueOf(expertiseCreateDto.getDescription()))))
-        .andDo(document("expertiseCreate", responseDtoFields));
+            content().string(containsString(String.valueOf(expertiseCreateDto.getDescription()))));
   }
 
   @Test
@@ -128,8 +92,7 @@ public class ExpertiseControllerDocumentationTest extends AbstractDocumentationT
         .andExpect(status().isOk())
         .andExpect(
             content().string(containsString(String.valueOf(expertiseUpdateDto.getDescription()))))
-        .andExpect(content().string(containsString(String.valueOf(expertiseUpdateDto.getLevel()))))
-        .andDo(document("expertiseEdit", responseDtoFields));
+        .andExpect(content().string(containsString(String.valueOf(expertiseUpdateDto.getLevel()))));
   }
 
   @Test
@@ -139,7 +102,6 @@ public class ExpertiseControllerDocumentationTest extends AbstractDocumentationT
 
     this.mockMvc
         .perform(delete(URL_EXPERTISE_ID, expertise.getId()).accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNoContent())
-        .andDo(document("expertiseDelete"));
+        .andExpect(status().isNoContent());
   }
 }

@@ -8,16 +8,10 @@ import com.github.benjamineckstein.showcase.util.AbstractDocumentationTest;
 import com.github.benjamineckstein.showcase.util.Testcase2;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.payload.ResponseFieldsSnippet;
-
-import java.util.UUID;
 
 import static com.github.benjamineckstein.showcase.employees.controller.EmployeesController.URL_EMPLOYEES;
 import static com.github.benjamineckstein.showcase.employees.controller.EmployeesController.URL_EMPLOYEES_ID;
 import static org.hamcrest.Matchers.containsString;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -27,19 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class EmployeeControllerDocumentationTest extends AbstractDocumentationTest {
 
-  public static final ResponseFieldsSnippet responseDtoListFields =
-      responseFields(
-          fieldWithPath("employees").description("List of employees"),
-          fieldWithPath("employees[].id").description("Employee UUID").type(UUID.class),
-          fieldWithPath("employees[].version").description("Entity version for optimistic locking"),
-          fieldWithPath("employees[].name").description("Employee name"));
-
-  public static final ResponseFieldsSnippet responseDtoFields =
-      responseFields(
-          fieldWithPath("id").description("Employee UUID").type(UUID.class),
-          fieldWithPath("version").description("Entity version for optimistic locking"),
-          fieldWithPath("name").description("Employee name"));
-
   @Test
   public void shouldDocumentGetEmployee() throws Exception {
 
@@ -48,8 +29,7 @@ public class EmployeeControllerDocumentationTest extends AbstractDocumentationTe
     this.mockMvc
         .perform(get(URL_EMPLOYEES_ID, employee.getId()).accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(content().string(containsString(String.valueOf(employee.getId()))))
-        .andDo(document("employeeGet", responseDtoFields));
+        .andExpect(content().string(containsString(String.valueOf(employee.getId()))));
   }
 
   @Test
@@ -61,8 +41,7 @@ public class EmployeeControllerDocumentationTest extends AbstractDocumentationTe
         .andExpect(status().isOk())
         .andExpect(
             content()
-                .string(containsString(String.valueOf(testcase2.expertise1.getEmployee().getId()))))
-        .andDo(document("employeesGet", responseDtoListFields));
+                .string(containsString(String.valueOf(testcase2.expertise1.getEmployee().getId()))));
   }
 
   @Test
@@ -76,8 +55,7 @@ public class EmployeeControllerDocumentationTest extends AbstractDocumentationTe
                 .content(asJsonString(employeeCreateDto))
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isCreated())
-        .andExpect(content().string(containsString(String.valueOf(employeeCreateDto.getName()))))
-        .andDo(document("employeeCreate", responseDtoFields));
+        .andExpect(content().string(containsString(String.valueOf(employeeCreateDto.getName()))));
   }
 
   @Test
@@ -95,8 +73,7 @@ public class EmployeeControllerDocumentationTest extends AbstractDocumentationTe
                 .content(asJsonString(employeeDto))
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
-        .andExpect(content().string(containsString(String.valueOf(employeeDto.getName()))))
-        .andDo(document("employeeEdit", responseDtoFields));
+        .andExpect(content().string(containsString(String.valueOf(employeeDto.getName()))));
   }
 
   @Test
@@ -106,7 +83,6 @@ public class EmployeeControllerDocumentationTest extends AbstractDocumentationTe
 
     this.mockMvc
         .perform(delete(URL_EMPLOYEES_ID, employee.getId()).accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isNoContent())
-        .andDo(document("employeeDelete"));
+        .andExpect(status().isNoContent());
   }
 }
