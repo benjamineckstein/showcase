@@ -1,13 +1,9 @@
 # Showcase
 
-[![Build Status](https://travis-ci.org/benjamineckstein/showcase.svg?branch=main)](https://travis-ci.org/benjamineckstein/showcase)
-[![codecov](https://codecov.io/gh/benjamineckstein/showcase/branch/main/graph/badge.svg)](https://codecov.io/gh/benjamineckstein/showcase)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e556f5bf22834f8792109a59587fe7e0)](https://app.codacy.com/gh/benjamineckstein/showcase?utm_source=github.com&utm_medium=referral&utm_content=benjamineckstein/showcase&utm_campaign=Badge_Grade)
-[![Code Inspector](https://www.code-inspector.com/project/14288/score/svg)](https://frontend.code-inspector.com/public/project/14288/showcase/dashboard)
-![Lines of code](https://img.shields.io/tokei/lines/github/benjamineckstein/showcase?label=Lines%20of%20Code&style=flat-square)
+[![Java CI](https://github.com/benjamineckstein/showcase/actions/workflows/java_ci.yml/badge.svg)](https://github.com/benjamineckstein/showcase/actions/workflows/java_ci.yml)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=benjamineckstein_showcase&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=benjamineckstein_showcase)
 
-Showcase with a minimal spring boot application showing what you can do with a little bit of extra testing
+Showcase with a minimal Spring Boot application demonstrating what you can achieve with a little extra testing effort — including **100% test coverage** enforced by mutation testing.
 
 ## Architecture Tests
 
@@ -41,5 +37,6 @@ Do not waste time writing boring and repeating tests. Go one step further and au
 
 Automated Pojo testing is implemented with <https://github.com/OpenPojo/openpojo> and <https://jqno.nl/equalsverifier/>
 
-### Credits
-This showcase was sponsored by my current employer Novatec Consulting GmbH https://www.novatec-gmbh.de/en/
+---
+
+More examples and articles about software engineering practices at [codewithagents.de](https://www.codewithagents.de)
